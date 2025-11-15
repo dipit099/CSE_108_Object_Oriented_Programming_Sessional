@@ -1,0 +1,38 @@
+package interfaces;
+
+interface Callback {
+    void call(int param);
+}
+
+class Client implements Callback {
+    //must write "public"
+    public void call(int p) {
+        System.out.println("call method called with " + p);
+    }
+
+    public void f() {
+        System.out.println("simple method, not related with Callback");
+    }
+}
+
+public class InterfaceTest {
+    public static void main(String[] args) {
+        
+        // Callback c = new Callback();    // Can't instantiate an interface directly
+        Client client = new Client();
+        client.call(42);
+        client.f();
+        
+        Callback cb = new Client();
+        cb.call(84);
+        // cb.f(); Error, no such method in Callback
+        Callback cb2 = new Callback() {
+            @Override
+            //MUST Write "public"
+            public void call(int param) {
+                System.out.println("call method by anonymous class " + param);
+            }
+        };
+        cb2.call(21);
+    }
+}
